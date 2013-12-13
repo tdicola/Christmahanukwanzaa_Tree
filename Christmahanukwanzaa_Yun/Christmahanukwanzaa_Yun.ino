@@ -33,9 +33,8 @@
   Written by Limor Fried & Kevin Townsend for Adafruit Industries.  
   BSD license, all text above must be included in any redistribution
  ****************************************************/
-#include <Console.h>
-#include <YunServer.h>
 #include <YunClient.h>
+#include <YunServer.h>
 #include <Adafruit_NeoPixel.h>
 
 // Neo pixel configuration
@@ -121,13 +120,9 @@ int currentSpeed = 0;
 
 void setup() {
   Serial.begin(115200);
+
   // Initialize Yun bridge library.
   Bridge.begin();
-  // Initialize console library.
-  Console.begin();
-  while(!Console) {
-    ;
-  }
   
   // Initialize the neo pixel strip.
   strip.begin();
@@ -150,7 +145,7 @@ struct Color gradientColor(struct ColorScheme& scheme, int range, int gradRange,
     start = (scheme.count-1) - start;
     end = (scheme.count-1) - end;
   }
-  Color result(map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].red,   scheme.colors[end].red),
+  return Color(map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].red,   scheme.colors[end].red),
                map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].green, scheme.colors[end].green),
                map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].blue,  scheme.colors[end].blue)); 
 }

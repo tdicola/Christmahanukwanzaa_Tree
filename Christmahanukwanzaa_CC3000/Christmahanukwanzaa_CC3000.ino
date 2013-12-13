@@ -52,8 +52,8 @@ Adafruit_CC3000 cc3000 = Adafruit_CC3000(ADAFRUIT_CC3000_CS,
                                          SPI_CLOCK_DIV2);
 
 // Wireless network configuration
-#define     WLAN_SSID              "tdicola"      // cannot be longer than 32 characters!
-#define     WLAN_PASS              "101tdicola"
+#define     WLAN_SSID              "myNetwork"      // cannot be longer than 32 characters!
+#define     WLAN_PASS              "myPassword"
 #define     WLAN_SECURITY          WLAN_SEC_WPA2  // Security can be WLAN_SEC_UNSEC, WLAN_SEC_WEP, WLAN_SEC_WPA or WLAN_SEC_WPA2
 
 // Neo pixel configuration
@@ -72,7 +72,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, NEO_GRB + NE
 // Create a server to listen on port 80 (HTTP).
 Adafruit_CC3000_Server server(80);
 
-// Create an multicast DNS responder.
+// Create a multicast DNS responder.
 MDNSResponder mdns;
 
 // Color scheme definitions.
@@ -191,9 +191,9 @@ struct Color gradientColor(struct ColorScheme& scheme, int range, int gradRange,
     start = (scheme.count-1) - start;
     end = (scheme.count-1) - end;
   }
-  Color result(map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].red,   scheme.colors[end].red),
-               map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].green, scheme.colors[end].green),
-               map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].blue,  scheme.colors[end].blue)); 
+  return  Color(map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].red,   scheme.colors[end].red),
+                map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].green, scheme.colors[end].green),
+                map(rangeIndex % gradRange, 0, gradRange, scheme.colors[start].blue,  scheme.colors[end].blue)); 
 }
 
 // Display a gradient of colors for the provided color scheme.
@@ -249,6 +249,7 @@ void loop() {
   // Handle any HTTP connections.
   Adafruit_CC3000_ClientRef client = server.available();
   if (client) {
+    buffer = "";
     // Expect "GET /arduino/".
     while (client.available() && buffer.length() < 13) {
       buffer = buffer + char(client.read());
