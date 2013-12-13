@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Christma-hanu-kwanzaa</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css"/>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron col-sm-12">
+                <h1>CHRISTMA-HANU-KWANZAA TREE LIGHTS</h1>
+                <p>Control the color and animation of tree lights from this web page. 
+                Happy Holidays!</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Color Scheme</h2>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="plain">Plain</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="rgb">RGB</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="christmas">Christmas</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="hanukkah">Hanukkah</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="kwanzaa">Kwanzaa</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="rainbow">Rainbow</button>
+                    </div>
+                    <!-- This empty div adds some vertical space between button rows and hides when width is too small and elements collapse into a list. -->
+                    <div class="hidden-xs">&nbsp;</div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="fire">Fire</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Pattern</h2>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="bars">Bars</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="gradient">Gradient</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Width</h2>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="widthSmall">Small</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="widthMedium">Medium</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="widthLarge">Large</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Animation</h2>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="speedNone">None</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="speedSlow">Slow</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="speedModerate">Moderate</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-block" id="speedFast">Fast</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            console.log('Communicating with Arduino at IP: {{ model.arduino_ip }}');
+            var arduinoURL = 'http://{{ model.arduino_ip }}/arduino/';
+
+            // Add click handlers which make GET requests to the tree server.
+            // Note that jsonp callbacks MUST be used to deal with cross-domain browser
+            // security issues, even though no data is retrieved.
+            $('#plain').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'scheme/0', 
+                    dataType: 'jsonp',   
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#rgb').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'scheme/1', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#christmas').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'scheme/2', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#hanukkah').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'scheme/3', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#kwanzaa').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'scheme/4', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#rainbow').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'scheme/5', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#fire').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'scheme/6', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#bars').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'pattern/0', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#gradient').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'pattern/1', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#widthSmall').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'width/0', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#widthMedium').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'width/1', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#widthLarge').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'width/2', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#speedNone').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'speed/0', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#speedSlow').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'speed/1', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#speedModerate').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'speed/2', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+
+            $('#speedFast').click(function() {
+                $.ajax({
+                    url: arduinoURL + 'speed/3', 
+                    dataType: 'jsonp',
+                    jsonpCallback: 'dummy'
+                });
+            });
+        });
+    </script>
+</html>
