@@ -216,8 +216,12 @@ void loop() {
     else if (command == "speed") {
       currentSpeed = speedValues[constrain(value, 0, 3)];
     }
-    // Close the connection.  Unfortunately there isn't a way to send a custom status code or response type
-    // since the Yun appears to send one automatically.
+    // Send an empty response and close the connection.
+    // Note that sending a custom status code and content type as below is not
+    // documented officially: http://forum.arduino.cc/index.php?PHPSESSID=es72i5nserl8lojnk3vl86d8r6&topic=191895.0
+    client.println("Status: 200");
+    client.println("Content-type: application/json");
+    client.println();
     client.stop();
   }
   
